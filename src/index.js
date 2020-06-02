@@ -6,7 +6,9 @@ const port = 3000;
 
 mongoose.connect(process.env.MONGO_URL);
 
-let loginRoute = require("./routes/login.route");
+const loginRoute = require("./routes/login.route");
+const avtRoute = require("./routes/avt.route");
+const timelineRoute = require("./routes/timeline.route");
 
 app.listen(port, () => {
   console.log("App listening on port", port);

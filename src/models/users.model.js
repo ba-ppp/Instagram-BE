@@ -9,7 +9,5 @@ const userSchema = new mongoose.Schema({
 });
 
 const Users = mongoose.model("Users", userSchema, "users");
-Users.find().then(function(hi) {
-  console.log(hi);
-});
+
 module.exports = Users;
