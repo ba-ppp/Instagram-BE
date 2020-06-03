@@ -1,11 +1,14 @@
-const express = require("express");
-const mongoose = require("mongoose");
 require("dotenv").config();
+const express = require("express");
 const app = express();
-const port = 3000;
+const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
+const port = 3000;
 
 mongoose.connect(process.env.MONGO_URL);
+
+app.use(cookieParser(process.env.SECRET_COOKIE));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
