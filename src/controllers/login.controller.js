@@ -5,7 +5,7 @@ module.exports.index = async (req, res) => {
   const password = req.body.password;
 
   const tokenList = {};
-  console.log(username, password);
+
   let user = await Users.findOne({ username: username }); //search by username
   if (!user) {
     //search by email
@@ -17,7 +17,7 @@ module.exports.index = async (req, res) => {
   if (user.password !== password) {
     return;
   }
-  console.log(user);
+
   // Login success, create token
   const token = jwt.sign(
     { name: "BaP", data: "amsnf" },
