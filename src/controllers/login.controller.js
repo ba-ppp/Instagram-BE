@@ -5,6 +5,7 @@ module.exports.index = async (req, res) => {
   const password = req.body.password;
   let errors = [];
 
+
   let user = await Users.findOne({ username: username }); //search by username
   if (!user) {
     //search by email
