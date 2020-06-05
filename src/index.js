@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+var cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -10,6 +11,8 @@ mongoose.connect(process.env.MONGO_URL);
 
 app.use(cookieParser(process.env.SECRET_COOKIE));
 
+app.use(cors());
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -19,6 +22,7 @@ const timelineRoute = require("./routes/timeline.route");
 
 app.listen(port, () => {
   console.log("App listening on port", port);
+  console.log("hi");
 });
 
 app.use("/login", loginRoute);

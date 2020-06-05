@@ -3,21 +3,21 @@ var jwt = require("jsonwebtoken");
 module.exports.index = async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
+  let errors = [];
 
-  const tokenList = {};
-  console.log(username, password);
   let user = await Users.findOne({ username: username }); //search by username
   if (!user) {
     //search by email
     user = await Users.findOne({ email: username });
   }
-  if (!user) {
-    return;
+  if (user) {
+    if (user.password !== password) {
+      errors.push("Wrong password");
+    }
+  } else {
+    errors.push("Username doesn't exist");
   }
-  if (user.password !== password) {
-    return;
-  }
-  console.log(user);
+
   // Login success, create token
   const token = jwt.sign(
     { name: "BaP", data: "amsnf" },
@@ -34,11 +34,12 @@ module.exports.index = async (req, res) => {
       expiresIn: process.env.REFESH_LIFE
     }
   );
-  tokenList[refreshToken] = { name: "BaP", data: "amsnf" };
+
   //response users their token
   const response = {
     token,
-    refreshToken
+    refreshToken,
+    errors
   };
   res.json(response);
 };
