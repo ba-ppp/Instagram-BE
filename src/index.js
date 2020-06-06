@@ -4,12 +4,10 @@ var cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-var cookieParser = require("cookie-parser");
+
 const port = 3000;
 
 mongoose.connect(process.env.MONGO_URL);
-
-app.use(cookieParser(process.env.SECRET_COOKIE));
 
 app.use(cors());
 
@@ -18,6 +16,7 @@ app.use(bodyParser.json());
 
 const loginRoute = require("./routes/login.route");
 const avtRoute = require("./routes/avt.route");
+const registerRoute = require("./routes/register.route");
 const timelineRoute = require("./routes/timeline.route");
 
 app.listen(port, () => {
@@ -26,3 +25,5 @@ app.listen(port, () => {
 });
 
 app.use("/login", loginRoute);
+
+app.use("/register", registerRoute);
