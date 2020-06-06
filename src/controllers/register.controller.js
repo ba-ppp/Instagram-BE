@@ -31,3 +31,4 @@ module.exports.checkE = async (req, res) => {
     res.json("Email");
   }
 };
+
