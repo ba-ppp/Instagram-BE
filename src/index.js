@@ -18,12 +18,14 @@ const loginRoute = require("./routes/login.route");
 const avtRoute = require("./routes/avt.route");
 const registerRoute = require("./routes/register.route");
 const timelineRoute = require("./routes/timeline.route");
+const forgetPass = require("./routes/forgetPass.route");
 
 app.listen(port, () => {
   console.log("App listening on port", port);
-  console.log("hi");
 });
 
 app.use("/login", loginRoute);
 
 app.use("/register", registerRoute);
+
+app.use("/forgetPass", forgetPass);
