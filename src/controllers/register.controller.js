@@ -1,12 +1,17 @@
 const Users = require("../models/users.model");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 module.exports.index = (req, res) => {
+  const hash = bcrypt.hashSync(req.body.password, saltRounds);
+
   const user = {
     username: req.body.username,
     email: req.body.email,
-    password: req.body.password
-    // avt: req.body.avt
+    avt: req.body.avt,
+    password: hash
   };
+  console.log(user);
   Users.create(user);
 };
 

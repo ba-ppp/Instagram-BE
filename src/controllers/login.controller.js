@@ -1,5 +1,6 @@
 const Users = require("../models/users.model");
 var jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 module.exports.index = async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -10,8 +11,10 @@ module.exports.index = async (req, res) => {
     //search by email
     user = await Users.findOne({ email: username });
   }
+
   if (user) {
-    if (user.password !== password) {
+    let result = bcrypt.compareSync(password, user.password);
+    if (result === false) {
       errors.push("Wrong password");
     }
   } else {
@@ -41,5 +44,6 @@ module.exports.index = async (req, res) => {
     refreshToken,
     errors
   };
+  console.log(response.errors);
   res.json(response);
 };
